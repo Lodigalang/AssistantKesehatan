@@ -2,12 +2,24 @@ import streamlit as st
 from inference import chat_inference
 
 st.set_page_config(page_title="Asisten Kesehatan Digital", page_icon="🩺")
-st.title("🩺 Asisten Kesehatan LodiHealth")
+st.title("🩺 Asisten Kesehatan Lodi Health's")
 
 st.markdown("""
-Selamat datang di chatbot kesehatan digital!  
-Tanyakan seputar gejala, gaya hidup sehat, atau minta rekomendasi dokter/rumah sakit.
+# Selamat datang di Chatbot Kesehatan Digital! 👋
+
+Kamu bisa:
+- 💬 **Tanya soal gejala atau curhat kesehatan** (fisik & mental)  
+- 🧑‍⚕️ **Cari rekomendasi dokter** sesuai kebutuhanmu  
+- 🏥 **Temukan rumah sakit** yang relevan dengan lokasi atau layanan  
+- 📰 **Baca berita kesehatan terbaru** dari sumber terpercaya
+
+> Chatbot ini memberikan informasi dan panduan awal berbasis AI.  
+> **Bukan pengganti diagnosis atau perawatan dari dokter.**
+
+Silakan ketik pertanyaanmu atau pilih fitur yang kamu butuhkan di bawah.
 """)
+
+
 
 with st.sidebar:
     st.header("⚙️ Pengaturan")
@@ -25,7 +37,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Input user
-prompt = st.chat_input("Ketik keluhan atau pertanyaan kesehatan di sini...")
+prompt = st.chat_input("Ketik keluhan atau pertanyaan lainnya di sini...")
 
 if prompt:
     # Tampilkan input user

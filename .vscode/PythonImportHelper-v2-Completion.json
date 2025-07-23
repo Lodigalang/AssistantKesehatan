@@ -1,0 +1,395 @@
+[
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "chat_inference",
+        "importPath": "inference",
+        "description": "inference",
+        "isExtraImport": true,
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "get_hospital_ids_by_location",
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "isExtraImport": true,
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_hospitals_by_prompt",
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "isExtraImport": true,
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_hospital_ids_by_location",
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "isExtraImport": true,
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_close_matches",
+        "importPath": "difflib",
+        "description": "difflib",
+        "isExtraImport": true,
+        "detail": "difflib",
+        "documentation": {}
+    },
+    {
+        "label": "get_close_matches",
+        "importPath": "difflib",
+        "description": "difflib",
+        "isExtraImport": true,
+        "detail": "difflib",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "genai",
+        "importPath": "google",
+        "description": "google",
+        "isExtraImport": true,
+        "detail": "google",
+        "documentation": {}
+    },
+    {
+        "label": "get_health_news",
+        "importPath": "health_news",
+        "description": "health_news",
+        "isExtraImport": true,
+        "detail": "health_news",
+        "documentation": {}
+    },
+    {
+        "label": "get_doctor_recommendations",
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "isExtraImport": true,
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_doctors_by_hospital_and_spec",
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "isExtraImport": true,
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "prompt = st.chat_input(\"Ketik keluhan atau pertanyaan lainnya di sini...\")\nif prompt:\n    # Tampilkan input user\n    with st.chat_message(\"user\"):\n        st.markdown(prompt)\n    st.session_state.messages.append({\"role\": \"user\", \"content\": prompt})\n    try:\n        with st.spinner(\"Sedang menganalisis...\"):\n            response = chat_inference(prompt)\n        # Tampilkan respon asisten",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "normalize_text",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-zA-Z0-9\\s]\", \"\", text)\n    text = re.sub(r\"\\b(dokter|drg|dr)\\b\", \"\", text)  \n    return re.sub(r\"\\s+\", \" \", text.strip())\ndef fetch_doctors():\n    try:\n        response = requests.get(GITHUB_DOCTOR_DATA_URL)\n        response.raise_for_status()\n        doctors = response.json()",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_doctors",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def fetch_doctors():\n    try:\n        response = requests.get(GITHUB_DOCTOR_DATA_URL)\n        response.raise_for_status()\n        doctors = response.json()\n        for doc in doctors:\n            if doc[\"image\"].startswith(\"/images/\"):\n                filename = doc[\"image\"].split(\"/\")[-1]\n                doc[\"image\"] = f\"{BASE_IMAGE_URL}/{filename}\"\n        return doctors",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "detect_specialization_from_data",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def detect_specialization_from_data(prompt, doctors):\n    prompt_norm = normalize_text(prompt)\n    prompt_words = prompt_words = [word for word in prompt_norm.split() if word not in STOPWORDS]\n    all_specs = {\n        normalize_text(doc[\"specialization\"]): doc[\"specialization\"]\n        for doc in doctors\n    }\n    prompt_text = \" \".join(prompt_words)\n    spec_keys = list(all_specs.keys())\n    matches = get_close_matches(prompt_text, spec_keys, n=1, cutoff=0.6)",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_doctor_recommendations",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def get_doctor_recommendations(prompt=None):\n    doctors = fetch_doctors()\n    if not doctors:\n        return []\n    if prompt:\n        detected_spec = detect_specialization_from_data(prompt, doctors)\n        if detected_spec:\n            results = [\n                doc for doc in doctors\n                if normalize_text(detected_spec) in normalize_text(doc[\"specialization\"])",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_doctors_by_location_and_prompt",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def get_doctors_by_location_and_prompt(prompt):\n    hospital_ids = get_hospital_ids_by_location(prompt)\n    if not hospital_ids:\n        return get_doctor_recommendations(prompt)\n    return get_doctors_by_hospital_and_spec(hospital_ids, prompt)\ndef get_doctors_by_hospital_and_spec(hospital_ids, prompt=None):\n    doctors = fetch_doctors()\n    if not doctors:\n        return []\n    from difflib import get_close_matches",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_doctors_by_hospital_and_spec",
+        "kind": 2,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "def get_doctors_by_hospital_and_spec(hospital_ids, prompt=None):\n    doctors = fetch_doctors()\n    if not doctors:\n        return []\n    from difflib import get_close_matches\n    # Filter berdasarkan nama rumah sakit\n    filtered = []\n    for doc in doctors:\n        doc_hospital = doc.get(\"hospital\", \"\")\n        match = get_close_matches(doc_hospital, hospital_ids, cutoff=0.8)",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "GITHUB_DOCTOR_DATA_URL",
+        "kind": 5,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "GITHUB_DOCTOR_DATA_URL = \"https://raw.githubusercontent.com/Lodigalang/web-health/refs/heads/main/dokter/doctors.json\"\nBASE_IMAGE_URL = \"https://raw.githubusercontent.com/Lodigalang/web-health/main/dokter/images\"\nSTOPWORDS = {\n    \"di\", \"ke\", \"dari\", \"yang\", \"untuk\", \"dengan\", \"pada\", \"adalah\", \"ini\", \"itu\",\n    \"rekomendasi\", \"daftar\", \"cari\", \"mau\", \"butuh\", \"dokter\"\n}\ndef normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-zA-Z0-9\\s]\", \"\", text)\n    text = re.sub(r\"\\b(dokter|drg|dr)\\b\", \"\", text)  ",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_IMAGE_URL",
+        "kind": 5,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "BASE_IMAGE_URL = \"https://raw.githubusercontent.com/Lodigalang/web-health/main/dokter/images\"\nSTOPWORDS = {\n    \"di\", \"ke\", \"dari\", \"yang\", \"untuk\", \"dengan\", \"pada\", \"adalah\", \"ini\", \"itu\",\n    \"rekomendasi\", \"daftar\", \"cari\", \"mau\", \"butuh\", \"dokter\"\n}\ndef normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-zA-Z0-9\\s]\", \"\", text)\n    text = re.sub(r\"\\b(dokter|drg|dr)\\b\", \"\", text)  \n    return re.sub(r\"\\s+\", \" \", text.strip())",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "STOPWORDS",
+        "kind": 5,
+        "importPath": "doctor_data",
+        "description": "doctor_data",
+        "peekOfCode": "STOPWORDS = {\n    \"di\", \"ke\", \"dari\", \"yang\", \"untuk\", \"dengan\", \"pada\", \"adalah\", \"ini\", \"itu\",\n    \"rekomendasi\", \"daftar\", \"cari\", \"mau\", \"butuh\", \"dokter\"\n}\ndef normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-zA-Z0-9\\s]\", \"\", text)\n    text = re.sub(r\"\\b(dokter|drg|dr)\\b\", \"\", text)  \n    return re.sub(r\"\\s+\", \" \", text.strip())\ndef fetch_doctors():",
+        "detail": "doctor_data",
+        "documentation": {}
+    },
+    {
+        "label": "detect_category",
+        "kind": 2,
+        "importPath": "health_news",
+        "description": "health_news",
+        "peekOfCode": "def detect_category(article):\n    text = f\"{article.get('title', '')} {article.get('description', '')} {article.get('content', '')}\".lower()\n    if any(keyword in text for keyword in [\"mental\", \"stress\", \"anxiety\", \"depression\", \"psychology\", \"trauma\"]):\n        return \"Mental Health\"\n    if any(keyword in text for keyword in [\"nutrition\", \"diet\", \"obesity\", \"food\", \"calories\", \"eating habits\"]):\n        return \"Nutrition & Diet\"\n    if any(keyword in text for keyword in [\"exercise\", \"fitness\", \"workout\", \"yoga\", \"physical activity\", \"training\"]):\n        return \"Exercise & Fitness\"\n    if any(keyword in text for keyword in [\"diabetes\", \"cancer\", \"asthma\", \"hypertension\", \"chronic\", \"cardiovascular\", \"stroke\"]):\n        return \"Chronic Conditions\"",
+        "detail": "health_news",
+        "documentation": {}
+    },
+    {
+        "label": "get_health_news",
+        "kind": 2,
+        "importPath": "health_news",
+        "description": "health_news",
+        "peekOfCode": "def get_health_news(user_category=None):\n    url = \"https://newsapi.org/v2/top-headlines\"\n    params = {\n        \"country\": \"us\",\n        \"category\": \"health\",\n        \"pageSize\": 20,  \n        \"apiKey\": NEWS_API_KEY\n    }\n    response = requests.get(url, params=params)\n    data = response.json()",
+        "detail": "health_news",
+        "documentation": {}
+    },
+    {
+        "label": "NEWS_API_KEY",
+        "kind": 5,
+        "importPath": "health_news",
+        "description": "health_news",
+        "peekOfCode": "NEWS_API_KEY = os.getenv(\"NEWS_API_KEY\")  \n# Deteksi kategori manual berdasarkan kata kunci\ndef detect_category(article):\n    text = f\"{article.get('title', '')} {article.get('description', '')} {article.get('content', '')}\".lower()\n    if any(keyword in text for keyword in [\"mental\", \"stress\", \"anxiety\", \"depression\", \"psychology\", \"trauma\"]):\n        return \"Mental Health\"\n    if any(keyword in text for keyword in [\"nutrition\", \"diet\", \"obesity\", \"food\", \"calories\", \"eating habits\"]):\n        return \"Nutrition & Diet\"\n    if any(keyword in text for keyword in [\"exercise\", \"fitness\", \"workout\", \"yoga\", \"physical activity\", \"training\"]):\n        return \"Exercise & Fitness\"",
+        "detail": "health_news",
+        "documentation": {}
+    },
+    {
+        "label": "normalize_text",
+        "kind": 2,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "def normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-z0-9\\s]\", \"\", text)\n    return text.strip()\ndef remove_stopwords(text):\n    words = text.split()\n    filtered = [word for word in words if word not in STOPWORDS]\n    return \" \".join(filtered)\n# Ambil data rumah sakit dari URL\ndef fetch_hospital_data():",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "remove_stopwords",
+        "kind": 2,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "def remove_stopwords(text):\n    words = text.split()\n    filtered = [word for word in words if word not in STOPWORDS]\n    return \" \".join(filtered)\n# Ambil data rumah sakit dari URL\ndef fetch_hospital_data():\n    try:\n        response = requests.get(HOSPITAL_DATA_URL)\n        response.raise_for_status()\n        return response.json()",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_hospital_data",
+        "kind": 2,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "def fetch_hospital_data():\n    try:\n        response = requests.get(HOSPITAL_DATA_URL)\n        response.raise_for_status()\n        return response.json()\n    except Exception as e:\n        print(\"Gagal mengambil data rumah sakit:\", e)\n        return []\n# Ambil rumah sakit berdasarkan prompt lokasi\ndef get_hospitals_by_prompt(prompt):",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_hospitals_by_prompt",
+        "kind": 2,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "def get_hospitals_by_prompt(prompt):\n    hospitals_data = fetch_hospital_data()\n    if not hospitals_data:\n        return []\n    prompt = normalize_text(prompt)\n    prompt = remove_stopwords(prompt)\n    prompt_words = prompt.split()\n    results = []\n    seen_keys = set()\n    # Bikin key unik pakai name + region (karena tidak ada ID)",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "get_hospital_ids_by_location",
+        "kind": 2,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "def get_hospital_ids_by_location(prompt):\n    hospitals = get_hospitals_by_prompt(prompt)\n    result = [h[\"name\"] for h in hospitals if \"name\" in h]\n    if not result:\n        try:\n            response = requests.get(HOSPITAL_DATA_URL)\n            response.raise_for_status()\n            all_hospitals = response.json()\n            # Exact match (case-insensitive)\n            prompt_upper = normalize_text(prompt).upper()",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "HOSPITAL_DATA_URL",
+        "kind": 5,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "HOSPITAL_DATA_URL = \"https://raw.githubusercontent.com/Lodigalang/web-health/refs/heads/main/hospital.json\"\nSTOPWORDS = {\"di\", \"ke\", \"dari\", \"yang\", \"untuk\", \"dengan\", \"pada\", \"adalah\", \"ini\", \"itu\"}\n# Normalisasi teks\ndef normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-z0-9\\s]\", \"\", text)\n    return text.strip()\ndef remove_stopwords(text):\n    words = text.split()\n    filtered = [word for word in words if word not in STOPWORDS]",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "STOPWORDS",
+        "kind": 5,
+        "importPath": "hospital_data",
+        "description": "hospital_data",
+        "peekOfCode": "STOPWORDS = {\"di\", \"ke\", \"dari\", \"yang\", \"untuk\", \"dengan\", \"pada\", \"adalah\", \"ini\", \"itu\"}\n# Normalisasi teks\ndef normalize_text(text):\n    text = text.lower()\n    text = re.sub(r\"[^a-z0-9\\s]\", \"\", text)\n    return text.strip()\ndef remove_stopwords(text):\n    words = text.split()\n    filtered = [word for word in words if word not in STOPWORDS]\n    return \" \".join(filtered)",
+        "detail": "hospital_data",
+        "documentation": {}
+    },
+    {
+        "label": "is_news_query",
+        "kind": 2,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "def is_news_query(prompt):\n    keywords = [\"berita\", \"kabar\", \"info terkini\", \"update kesehatan\", \"news\"]\n    return any(word in prompt.lower() for word in keywords)\ndef is_doctor_recommendation(prompt):\n    keywords = [\"dokter\", \"rekomendasi dokter\", \"cari dokter\", \"butuh dokter\", \"spesialis\",\"daftar dokter\"]\n    return any(word in prompt.lower() for word in keywords)\ndef is_hospital_request(prompt):\n    keywords = [\"rumah sakit\", \"rs\", \"cari rs\", \"lokasi rs\", \"fasilitas kesehatan\"]\n    return any(word in prompt.lower() for word in keywords)\ndef detect_health_category(prompt):",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "is_doctor_recommendation",
+        "kind": 2,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "def is_doctor_recommendation(prompt):\n    keywords = [\"dokter\", \"rekomendasi dokter\", \"cari dokter\", \"butuh dokter\", \"spesialis\",\"daftar dokter\"]\n    return any(word in prompt.lower() for word in keywords)\ndef is_hospital_request(prompt):\n    keywords = [\"rumah sakit\", \"rs\", \"cari rs\", \"lokasi rs\", \"fasilitas kesehatan\"]\n    return any(word in prompt.lower() for word in keywords)\ndef detect_health_category(prompt):\n    prompt = prompt.lower()\n    if any(k in prompt for k in [\"mental\", \"kesehatan mental\", \"depresi\", \"cemas\", \"stres\"]):\n        return \"Mental Health\"",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "is_hospital_request",
+        "kind": 2,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "def is_hospital_request(prompt):\n    keywords = [\"rumah sakit\", \"rs\", \"cari rs\", \"lokasi rs\", \"fasilitas kesehatan\"]\n    return any(word in prompt.lower() for word in keywords)\ndef detect_health_category(prompt):\n    prompt = prompt.lower()\n    if any(k in prompt for k in [\"mental\", \"kesehatan mental\", \"depresi\", \"cemas\", \"stres\"]):\n        return \"Mental Health\"\n    elif any(k in prompt for k in [\"nutrisi\", \"makan\", \"gizi\", \"diet\"]):\n        return \"Nutrition & Diet\"\n    elif any(k in prompt for k in [\"olahraga\", \"fitness\", \"latihan\", \"aktif\"]):",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "detect_health_category",
+        "kind": 2,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "def detect_health_category(prompt):\n    prompt = prompt.lower()\n    if any(k in prompt for k in [\"mental\", \"kesehatan mental\", \"depresi\", \"cemas\", \"stres\"]):\n        return \"Mental Health\"\n    elif any(k in prompt for k in [\"nutrisi\", \"makan\", \"gizi\", \"diet\"]):\n        return \"Nutrition & Diet\"\n    elif any(k in prompt for k in [\"olahraga\", \"fitness\", \"latihan\", \"aktif\"]):\n        return \"Exercise & Fitness\"\n    elif any(k in prompt for k in [\"penyakit kronis\", \"diabetes\", \"hipertensi\", \"jantung\", \"asma\"]):\n        return \"Chronic Conditions\"",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "chat_inference",
+        "kind": 2,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "def chat_inference(prompt):\n    if is_news_query(prompt):\n        user_category = detect_health_category(prompt)\n        news = get_health_news(user_category) if user_category else get_health_news()\n        if not news:\n            return \"Maaf, saya tidak menemukan berita kesehatan terbaru yang relevan saat ini.\"\n        response = \"Berikut adalah beberapa berita kesehatan terbaru\"\n        if user_category:\n            response += f\" seputar **{user_category}**:\\n\\n\"\n        else:",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "api_key",
+        "kind": 5,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "api_key = os.getenv(\"GEMINI_API_KEY\")\nclient = genai.Client(api_key=api_key)\nchat = client.chats.create(model=\"gemini-2.0-flash\")\nurl_source = [\n    'https://www.halodoc.com/artikel',\n    'https://www.alodokter.com/artikel',\n    'https://www.sehatq.com/artikel'\n]\ndef is_news_query(prompt):\n    keywords = [\"berita\", \"kabar\", \"info terkini\", \"update kesehatan\", \"news\"]",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "client = genai.Client(api_key=api_key)\nchat = client.chats.create(model=\"gemini-2.0-flash\")\nurl_source = [\n    'https://www.halodoc.com/artikel',\n    'https://www.alodokter.com/artikel',\n    'https://www.sehatq.com/artikel'\n]\ndef is_news_query(prompt):\n    keywords = [\"berita\", \"kabar\", \"info terkini\", \"update kesehatan\", \"news\"]\n    return any(word in prompt.lower() for word in keywords)",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "chat",
+        "kind": 5,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "chat = client.chats.create(model=\"gemini-2.0-flash\")\nurl_source = [\n    'https://www.halodoc.com/artikel',\n    'https://www.alodokter.com/artikel',\n    'https://www.sehatq.com/artikel'\n]\ndef is_news_query(prompt):\n    keywords = [\"berita\", \"kabar\", \"info terkini\", \"update kesehatan\", \"news\"]\n    return any(word in prompt.lower() for word in keywords)\ndef is_doctor_recommendation(prompt):",
+        "detail": "inference",
+        "documentation": {}
+    },
+    {
+        "label": "url_source",
+        "kind": 5,
+        "importPath": "inference",
+        "description": "inference",
+        "peekOfCode": "url_source = [\n    'https://www.halodoc.com/artikel',\n    'https://www.alodokter.com/artikel',\n    'https://www.sehatq.com/artikel'\n]\ndef is_news_query(prompt):\n    keywords = [\"berita\", \"kabar\", \"info terkini\", \"update kesehatan\", \"news\"]\n    return any(word in prompt.lower() for word in keywords)\ndef is_doctor_recommendation(prompt):\n    keywords = [\"dokter\", \"rekomendasi dokter\", \"cari dokter\", \"butuh dokter\", \"spesialis\",\"daftar dokter\"]",
+        "detail": "inference",
+        "documentation": {}
+    }
+]

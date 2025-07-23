@@ -23,7 +23,6 @@ def fetch_doctors():
         response.raise_for_status()
         doctors = response.json()
         for doc in doctors:
-            print("-", normalize_text(doc["specialization"]))
             if doc["image"].startswith("/images/"):
                 filename = doc["image"].split("/")[-1]
                 doc["image"] = f"{BASE_IMAGE_URL}/{filename}"
@@ -59,9 +58,9 @@ def get_doctor_recommendations(prompt=None):
         if detected_spec:
             results = [
                 doc for doc in doctors
-                if normalize_text(doc["specialization"]) == normalize_text(detected_spec)
+                if normalize_text(detected_spec) in normalize_text(doc["specialization"])
             ]
-            print(f"Hasil ditemukan: {len(results)} dokter")
+          
             for r in results:
                 print("-", r["name"], "(", r["specialization"], ")")
             
@@ -87,28 +86,37 @@ def get_doctors_by_hospital_and_spec(hospital_ids, prompt=None):
 
     from difflib import get_close_matches
 
-    # Filter dokter berdasarkan rumah sakit
+    # Filter berdasarkan nama rumah sakit
     filtered = []
     for doc in doctors:
         doc_hospital = doc.get("hospital", "")
-        match = get_close_matches(doc_hospital, hospital_ids, n=1, cutoff=0.8)
+        match = get_close_matches(doc_hospital, hospital_ids, cutoff=0.8)
         if match:
             filtered.append(doc)
 
-    # Jika ada prompt spesialisasi
     if prompt:
         detected_spec = detect_specialization_from_data(prompt, filtered)
         print("Spesialisasi terdeteksi:", detected_spec)
+
         if detected_spec:
-            filtered = [
-                doc for doc in filtered
-                if detected_spec.lower() in doc["specialization"].lower()
-            ]
-            if not filtered:
-                return [{"message": f"Maaf, spesialis {detected_spec} belum tersedia di rumah sakit tersebut."}]
+            # Lakukan pencocokan longgar pada spesialisasi
+            filtered_spec = []
+            for doc in filtered:
+                if get_close_matches(
+                    normalize_text(detected_spec),
+                    [normalize_text(doc.get("specialization", ""))],
+                    cutoff=0.6
+                ):
+                    filtered_spec.append(doc)
+
+            if filtered_spec:
+                return filtered_spec
+            else:
+                return [{"message": f"Maaf, belum ada dokter dengan spesialisasi '{detected_spec}' yang ditemukan di rumah sakit tersebut."}]
         else:
-            return [{"message": "Maaf, spesialis tersebut belum tersedia di rumah sakit tersebut."}]
+            return filtered  # Jika tidak yakin, kembalikan semua dokter dari RS itu
 
     return filtered
+
 
 #doctor_data.py 
