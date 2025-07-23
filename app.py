@@ -5,21 +5,20 @@ st.set_page_config(page_title="Asisten Kesehatan Digital", page_icon="🩺")
 st.title("🩺 Asisten Kesehatan Lodi Health's")
 
 st.markdown("""
-# Selamat datang di Chatbot Kesehatan Digital! 👋
+## Selamat datang di Asisten Kesehatan Digital Lodi Health's! 👋
 
-Kamu bisa:
-- 💬 **Tanya soal gejala atau curhat kesehatan** (fisik & mental)  
-- 🧑‍⚕️ **Cari rekomendasi dokter** sesuai kebutuhanmu  
-- 🏥 **Temukan rumah sakit** yang relevan dengan lokasi atau layanan  
-- 📰 **Baca berita kesehatan terbaru** dari sumber terpercaya
+Dengan bantuan AI, kamu bisa:
 
-> Chatbot ini memberikan informasi dan panduan awal berbasis AI.  
-> **Bukan pengganti diagnosis atau perawatan dari dokter.**
+- 💬 **Bertanya seputar gejala atau keluhan kesehatan** (fisik maupun mental)  
+- 🧑‍⚕️ **Mendapatkan rekomendasi dokter** sesuai kebutuhan dan spesialisasi  
+- 🏥 **Menemukan rumah sakit** terdekat atau berdasarkan layanan yang tersedia  
+- 📰 **Membaca berita dan informasi kesehatan terbaru** dari sumber terpercaya  
 
-Silakan ketik pertanyaanmu atau pilih fitur yang kamu butuhkan di bawah.
+> 🤖 Asisten ini dirancang untuk memberikan informasi awal dan panduan secara digital.  
+> ⚠️ **Bukan pengganti konsultasi, diagnosis, atau pengobatan langsung dari tenaga medis profesional.**
+
+Silakan ketik pertanyaanmu di kolom chat atau pilih fitur yang tersedia di bawah ini.
 """)
-
-
 
 with st.sidebar:
     st.header("⚙️ Pengaturan")
