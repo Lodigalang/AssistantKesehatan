@@ -5,19 +5,24 @@ st.set_page_config(page_title="Asisten Kesehatan Digital", page_icon="🩺")
 st.title("🩺 Asisten Kesehatan Lodi Health's")
 
 st.markdown("""
-## Selamat datang di Asisten Kesehatan Digital Lodi Health's! 👋
+## Selamat datang di Asisten Kesehatan Lodi Health's! 👋
 
-Dengan bantuan AI, kamu bisa:
+Kamu bisa:
 
-- 💬 **Bertanya seputar gejala atau keluhan kesehatan** (fisik maupun mental)  
-- 🧑‍⚕️ **Mendapatkan rekomendasi dokter** sesuai kebutuhan dan spesialisasi  
-- 🏥 **Menemukan rumah sakit** terdekat atau berdasarkan layanan yang tersedia  
-- 📰 **Membaca berita dan informasi kesehatan terbaru** dari sumber terpercaya  
+- 💬 **Tanya gejala atau keluhan kesehatan**  
+- 🧑‍⚕️ **Cari dokter** (sebutkan spesialis & lokasi)  
+- 🏥 **Temukan rumah sakit** (sebutkan kota/provinsi)  
+- 📰 **Baca berita kesehatan terbaru**
 
-> 🤖 Asisten ini dirancang untuk memberikan informasi awal dan panduan secara digital.  
-> ⚠️ **Bukan pengganti konsultasi, diagnosis, atau pengobatan langsung dari tenaga medis profesional.**
+---
 
-Silakan ketik pertanyaanmu di kolom chat atau pilih fitur yang tersedia di bawah ini.
+ℹ️ *Berikan pertanyaan yang jelas dan spesifik*  
+Contoh: `dokter gigi di Surabaya`, `rumah sakit di Bandung`
+
+🛠️ *Catatan: Sistem ini masih dalam pengembangan dan belum sepenuhnya otomatis.*
+
+> 🤖 Asisten ini memberi info awal berbasis AI  
+> ⚠️ Bukan pengganti diagnosis atau konsultasi dokter
 """)
 
 with st.sidebar:
