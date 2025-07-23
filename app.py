@@ -10,14 +10,14 @@ st.markdown("""
 Kamu bisa:
 
 - 💬 **Tanya gejala atau keluhan kesehatan**  
-- 🧑‍⚕️ **Cari dokter** (sebutkan spesialis & lokasi)  
+- 🧑‍⚕️ **Cari dokter** (sebutkan spesialis)
 - 🏥 **Temukan rumah sakit** (sebutkan kota/provinsi)  
 - 📰 **Baca berita kesehatan terbaru**
 
 ---
 
 ℹ️ *Berikan pertanyaan yang jelas dan spesifik*  
-Contoh: `dokter gigi di Surabaya`, `rumah sakit di Bandung`
+Contoh: `rumah sakit di Surabaya`
 
 🛠️ *Catatan: Sistem ini masih dalam pengembangan dan belum sepenuhnya otomatis.*
 
