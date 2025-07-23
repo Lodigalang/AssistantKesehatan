@@ -19,7 +19,7 @@ Kamu bisa:
 ℹ️ *Berikan pertanyaan yang jelas dan spesifik*  
 Contoh: `rumah sakit di Surabaya`
 
-🛠️ *Catatan: Sistem ini masih dalam pengembangan dan belum sepenuhnya otomatis.*
+🛠️ *Catatan: Sistem ini masih dalam tahap pengembangan dan belum sepenuhnya otomatis. Mohon maaf jika terdapat kekeliruan atau keterbatasan.*
 
 > 🤖 Asisten ini memberi info awal berbasis AI  
 > ⚠️ Bukan pengganti diagnosis atau konsultasi dokter
